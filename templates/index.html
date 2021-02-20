@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="mx-auto container border " style="width: 500px; padding-bottom: 20px; margin-top: 20px;">
+    <h6 class="p-3">Upload an image of a chess piece</h6>
+
+
+    <div class="container">
+        <form action="{{ url_for('predict') }}" enctype="multipart/form-data" method="POST">
+            <div class="input-group my-3">
+                <input type="file" name='image' class="form-control" id="inputGroupFile02">
+            </div>
+
+            {% if fname != null  %}
+                <div class="d-flex">
+                    <img src={{ fname }} class="mx-auto mb-3">
+                </div>
+            {% endif %}
+
+
+            {% if warn != null %}
+                <div class="mt-2">
+                    <div class="alert alert-warning" role="alert">
+                        Warning: {{ warn }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if pred != null  %}
+                <div class="alert alert-success" role="alert">
+                    Prediction: {{ pred }}
+                </div>
+            {% else %}
+                <button type="submit" class="btn btn-success" value="predict">Predict</button>
+            {% endif %}
+
+
+        </form>
+
+        {% if pred != null  %}
+            <form action="{{ url_for('reset') }}">
+                <button type="submit" class="btn btn-outline-success" value="reset">Reset</button>
+            </form>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
