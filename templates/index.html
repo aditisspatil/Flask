@@ -18,6 +18,12 @@
                 <input type="file" name='image' class="form-control" id="inputGroupFile02">
             </div>
 
+            <button type="submit" class="btn btn-success" name="submit_button" value="predict">Predict</button>
+
+            {% if pred != null  %}
+                <button type="submit" class="btn btn-outline-success" name="submit_button" value="reset">Reset</button>
+            {% endif %}
+
             {% if fname != null  %}
                 <div class="d-flex">
                     <img src={{ fname }} class="mx-auto mb-3">
@@ -37,19 +43,9 @@
                 <div class="alert alert-success" role="alert">
                     Prediction: {{ pred }}
                 </div>
-            {% else %}
-                <button type="submit" class="btn btn-success" value="predict">Predict</button>
             {% endif %}
 
-
         </form>
-
-        {% if pred != null  %}
-            <form action="{{ url_for('reset') }}">
-                <button type="submit" class="btn btn-outline-success" value="reset">Reset</button>
-            </form>
-        {% endif %}
-
     </div>
 </div>
 

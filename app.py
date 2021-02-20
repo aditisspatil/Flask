@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,url_for
 from flask_uploads import configure_uploads, IMAGES, UploadSet
 from PIL import Image
 
@@ -36,6 +36,9 @@ def predict():
         return render_template('index.html', warn='Please add an image')
 
     else:
+        if request.form['submit_button'] == 'reset':
+            return redirect(url_for('index'))
+
         if request.files['image'].filename != '':
             try:
                 fname = photos.save(request.files['image'])
@@ -55,11 +58,6 @@ def resize(path):
         im.save(path)
     except IOError:
         print("cannot create thumbnail for %s" % path)
-
-
-@app.route('/reset', methods=['POST', 'GET'])
-def reset():
-    return redirect('/')
 
 
 if __name__ == "__main__":
